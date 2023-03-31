@@ -1,0 +1,70 @@
+// imports sass
+@import'./resets';
+@import'./variable';
+
+//function
+@function weight($weight-name){
+    @return map-get($font-weights, $weight-name)
+}
+
+//mixins 
+
+@mixin flex($flex-align){
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+@mixin theme($light-theme: true){
+    @if $light-theme {
+       background-color: lighten($heading-color, 50%);
+       color: darken($text-color, 80%);
+    }
+}
+
+@mixin small-devices{
+    @media (max-width: $mobile){
+        @content;
+    }
+
+}
+
+body{
+    background-color: $heading-color;
+    color: $text-color;
+}
+
+.main{
+
+    @include flex(center);
+    width: 80% - 40%;
+    height: 50%;
+    margin: 0 auto;
+
+    #{&}_paragraph1{
+        font-weight: weight(bold);
+        
+    
+     &:hover{
+        color: palevioletred;
+     }
+    }
+    
+    #{&}_paragraph2{
+        @extend .main_paragraph1;
+      
+     &:hover{
+        color: crimson;
+     } 
+
+    }
+
+ @include small-devices{
+     flex-direction: column;
+ }
+
+}
+.light{
+
+    @include theme($light-theme: true)
+}
